@@ -27,36 +27,62 @@ public class PasswordAnalyzer {
         }
 
         // Array to store count of passwords with different number of special characters
-        int[] specialCharCount = new int[11]; 
-        int[] numericCount = new int[11]; 
+        int[] specialCharCount = new int[21]; // Increase size to accommodate more special characters
+        int[] numericCount = new int[11]; // Array to store count of numerical characters
+        int[] lowercaseCount = new int[11]; // Array to store count of lowercase characters
+        int[] uppercaseCount = new int[11]; // Array to store count of uppercase characters
 
-        // Count special characters and numerical values considering password frequencies
+        // Count special characters, numerical characters, lowercase characters, and uppercase characters considering password frequencies
         for (String password : passwordFrequency.keySet()) {
             int frequency = passwordFrequency.get(password);
-            int specialChar = countSpecialCharacters(password) * frequency;
-            int numeric = countNumericValues(password) * frequency;
-            if (specialChar >= 0 && specialChar < specialCharCount.length) {
-                specialCharCount[specialChar]++;
+            int count = countSpecialCharacters(password) * frequency;
+            int numeric = countNumericCharacters(password) * frequency;
+            int lowercase = countLowercaseCharacters(password) * frequency;
+            int uppercase = countUppercaseCharacters(password) * frequency;
+
+            // Update special character count array
+            if (count >= 0 && count < specialCharCount.length) {
+                specialCharCount[count]++;
             } else {
-                specialCharCount[specialCharCount.length - 1]++; // Increment the last index for counts exceeding the array size
+                specialCharCount[specialCharCount.length - 1]++;
             }
+
+            // Update numeric count array
             if (numeric >= 0 && numeric < numericCount.length) {
                 numericCount[numeric]++;
             } else {
-                numericCount[numericCount.length - 1]++; // Increment the last index for counts exceeding the array size
+                numericCount[numericCount.length - 1]++;
+            }
+
+            // Update lowercase count array
+            if (lowercase >= 0 && lowercase < lowercaseCount.length) {
+                lowercaseCount[lowercase]++;
+            } else {
+                lowercaseCount[lowercaseCount.length - 1]++;
+            }
+
+            // Update uppercase count array
+            if (uppercase >= 0 && uppercase < uppercaseCount.length) {
+                uppercaseCount[uppercase]++;
+            } else {
+                uppercaseCount[uppercaseCount.length - 1]++;
             }
         }
 
-        // Display results for special characters
+        // Display results
         System.out.println("Number of Special Characters   Number of Passwords");
         for (int i = 0; i < specialCharCount.length; i++) {
             System.out.printf("%d                              %d%n", i, specialCharCount[i]);
         }
-        
-        // Display results for numerical values
-        System.out.println("\nNumber of Numerical Values   Number of Passwords");
+
+        System.out.println("\nNumber of Numeric Characters   Number of Passwords");
         for (int i = 0; i < numericCount.length; i++) {
             System.out.printf("%d                              %d%n", i, numericCount[i]);
+        }
+
+        System.out.println("\nNumber of Lowercase Characters   Number of Uppercase Characters   Number of Passwords");
+        for (int i = 0; i < lowercaseCount.length; i++) {
+            System.out.printf("%d                              %d                              %d%n", i, uppercaseCount[i], lowercaseCount[i]);
         }
     }
 
@@ -66,19 +92,43 @@ public class PasswordAnalyzer {
         for (int i = 0; i < password.length(); i++) {
             char ch = password.charAt(i);
             if (!Character.isLetterOrDigit(ch)) {
-                count++; // Count special characters
+                count++;
             }
         }
         return count;
     }
 
-    // Method to count numerical values in a password
-    private static int countNumericValues(String password) {
+    // Method to count numeric characters in a password
+    private static int countNumericCharacters(String password) {
         int count = 0;
         for (int i = 0; i < password.length(); i++) {
             char ch = password.charAt(i);
             if (Character.isDigit(ch)) {
-                count++; // Count numerical values
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Method to count lowercase characters in a password
+    private static int countLowercaseCharacters(String password) {
+        int count = 0;
+        for (int i = 0; i < password.length(); i++) {
+            char ch = password.charAt(i);
+            if (Character.isLowerCase(ch)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Method to count uppercase characters in a password
+    private static int countUppercaseCharacters(String password) {
+        int count = 0;
+        for (int i = 0; i < password.length(); i++) {
+            char ch = password.charAt(i);
+            if (Character.isUpperCase(ch)) {
+                count++;
             }
         }
         return count;
