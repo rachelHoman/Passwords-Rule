@@ -6,7 +6,9 @@ import java.util.Map;
 
 public class PasswordAnalyzer {
     public static void main(String[] args) {
-        String filename = "myspace-withcount.txt";
+        // String filename = "myspace-withcount.txt";
+        String filename = "test.txt";
+        int total = 0;
 
         // Map to store password frequencies
         Map<String, Integer> passwordFrequency = new HashMap<>();
@@ -20,11 +22,16 @@ public class PasswordAnalyzer {
                 if (parts.length >= 2) {
                     String password = parts[parts.length - 1]; // Assuming the password is the last part
                     passwordFrequency.put(password, passwordFrequency.getOrDefault(password, 0) + Integer.parseInt(parts[0]));
+                    total += Integer.parseInt(parts[0]);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println(passwordFrequency);
+        System.out.println(passwordFrequency.size());
+        System.out.println("total: " + total);
 
         // Array to store count of passwords with different number of special characters
         int[] specialCharCount = new int[11]; // Increase size to accommodate more special characters
@@ -36,71 +43,87 @@ public class PasswordAnalyzer {
         int[] whitespaceStartCount = new int[11]; // Array to store count of whitespace characters at the beginning of passwords
         int[] whitespaceEndCount = new int[11]; // Array to store count of whitespace characters at the end of passwords
 
-        // Count special characters, numerical characters, lowercase characters, uppercase characters, password lengths, and whitespace characters considering password frequencies
+        // Count special characters, numerical characters, lowercase characters, 
+        // uppercase characters, password lengths, and whitespace characters considering password frequencies
         for (String password : passwordFrequency.keySet()) {
             int frequency = passwordFrequency.get(password);
-            int count = countSpecialCharacters(password) * frequency;
-            int numeric = countNumericCharacters(password) * frequency;
-            int lowercase = countLowercaseCharacters(password) * frequency;
-            int uppercase = countUppercaseCharacters(password) * frequency;
+            // int count = countSpecialCharacters(password) * frequency;
+            // int numeric = countNumericCharacters(password) * frequency;
+            // int lowercase = countLowercaseCharacters(password) * frequency;
+            // int uppercase = countUppercaseCharacters(password) * frequency;
+            // int length = password.length();
+            // int whitespace = countWhitespaceCharacters(password) * frequency;
+            // int whitespaceStart = countWhitespaceAtStart(password) * frequency;
+            // int whitespaceEnd = countWhitespaceAtEnd(password) * frequency;
+            
+            int count = countSpecialCharacters(password);
+            int numeric = countNumericCharacters(password);
+            int lowercase = countLowercaseCharacters(password);
+            int uppercase = countUppercaseCharacters(password);
             int length = password.length();
-            int whitespace = countWhitespaceCharacters(password) * frequency;
-            int whitespaceStart = countWhitespaceAtStart(password) * frequency;
-            int whitespaceEnd = countWhitespaceAtEnd(password) * frequency;
+            int whitespace = countWhitespaceCharacters(password);
+            int whitespaceStart = countWhitespaceAtStart(password);
+            int whitespaceEnd = countWhitespaceAtEnd(password);
             
             // Update special character count array
             if (count >= 0 && count < specialCharCount.length) {
                 specialCharCount[count]++;
-            } else {
+            }else {
                 specialCharCount[specialCharCount.length - 1]++;
             }
 
             // Update numeric count array
             if (numeric >= 0 && numeric < numericCount.length) {
                 numericCount[numeric]++;
-            } else {
+            } 
+            else {
                 numericCount[numericCount.length - 1]++;
             }
 
             // Update lowercase count array
             if (lowercase >= 0 && lowercase < lowercaseCount.length) {
                 lowercaseCount[lowercase]++;
-            } else {
+            } 
+            else {
                 lowercaseCount[lowercaseCount.length - 1]++;
             }
 
             // Update uppercase count array
             if (uppercase >= 0 && uppercase < uppercaseCount.length) {
                 uppercaseCount[uppercase]++;
-            } else {
+            } 
+            else {
                 uppercaseCount[uppercaseCount.length - 1]++;
             }
 
             // Update length count array
             if (length >= 0 && length < lengthCount.length) {
                 lengthCount[length]++;
-            } else {
+            }else {
                 lengthCount[lengthCount.length - 1]++;
             }
 
             // Update whitespace count array
             if (whitespace >= 0 && whitespace < whitespaceCount.length) {
                 whitespaceCount[whitespace]++;
-            } else {
+            } 
+            else {
                 whitespaceCount[whitespaceCount.length - 1]++;
             }
 
             // Update whitespace start count array
             if (whitespaceStart >= 0 && whitespaceStart < whitespaceStartCount.length) {
                 whitespaceStartCount[whitespaceStart]++;
-            } else {
+            } 
+            else {
                 whitespaceStartCount[whitespaceStartCount.length - 1]++;
             }
 
             // Update whitespace end count array
             if (whitespaceEnd >= 0 && whitespaceEnd < whitespaceEndCount.length) {
                 whitespaceEndCount[whitespaceEnd]++;
-            } else {
+            } 
+            else {
                 whitespaceEndCount[whitespaceEndCount.length - 1]++;
             }
         }
@@ -137,7 +160,7 @@ public class PasswordAnalyzer {
         }
     }
 
-    // Method to count special characters in a password
+    // Method to count number of special characters in a password
     private static int countSpecialCharacters(String password) {
         int count = 0;
         for (int i = 0; i < password.length(); i++) {
@@ -149,7 +172,7 @@ public class PasswordAnalyzer {
         return count;
     }
 
-    // Method to count numeric characters in a password
+    // Method to count number of numeric characters in a password
     private static int countNumericCharacters(String password) {
         int count = 0;
         for (int i = 0; i < password.length(); i++) {
