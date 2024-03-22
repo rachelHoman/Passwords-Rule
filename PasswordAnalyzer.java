@@ -84,50 +84,50 @@ public class PasswordAnalyzer {
             //     startWithSpaceCount++;
             // }
             if (password.endsWith(" ")) {
-                endWithSpaceCount++;
+                endWithSpaceCount+=frequency;
             }
             
             // Update special character count array
             if (count >= 0 && count < specialCharCount.length) {
-                specialCharCount[count]++;
+                specialCharCount[count]+=frequency;
             }else {
-                specialCharCount[specialCharCount.length - 1]++;
+                specialCharCount[specialCharCount.length - frequency]+=frequency;
             }
 
             // Update numeric count array
             if (numeric >= 0 && numeric < numericCount.length) {
-                numericCount[numeric]++;
+                numericCount[numeric]+=frequency;
             } 
             else {
-                numericCount[numericCount.length - 1]++;
+                numericCount[numericCount.length - frequency]+=frequency;
             }
 
             // Update lowercase count array
             if (lowercase >= 0 && lowercase < lowercaseCount.length) {
-                lowercaseCount[lowercase]++;
+                lowercaseCount[lowercase]+=frequency;
             } 
             else {
-                lowercaseCount[lowercaseCount.length - 1]++;
+                lowercaseCount[lowercaseCount.length - frequency]+=frequency;
             }
 
             // Update uppercase count array
             if (uppercase >= 0 && uppercase < uppercaseCount.length) {
-                uppercaseCount[uppercase]++;
+                uppercaseCount[uppercase]+=frequency;
             } 
             else {
-                uppercaseCount[uppercaseCount.length - 1]++;
+                uppercaseCount[uppercaseCount.length - frequency]+=frequency;
             }
 
             // Update length count array
             if (length >= 0 && length < lengthCount.length) {
-                lengthCount[length]++;
+                lengthCount[length]+=frequency;
             }else {
-                lengthCount[lengthCount.length - 1]++;
+                lengthCount[lengthCount.length - frequency]+=frequency;
             }
 
             // Update whitespace count array
             if (whitespace >= 0 && whitespace < whitespaceCount.length) {
-                whitespaceCount[whitespace]++;
+                whitespaceCount[whitespace]+=frequency;
             }
 
             // // Update whitespace start count array
