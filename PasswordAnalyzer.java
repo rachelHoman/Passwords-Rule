@@ -212,7 +212,7 @@ public class PasswordAnalyzer {
         int count = 0;
         for (int i = 0; i < password.length(); i++) {
             char ch = password.charAt(i);
-            if (!Character.isLetterOrDigit(ch)) {
+            if (!Character.isLetterOrDigit(ch) && ch != ' ') {
                 count++;
             }
         }
