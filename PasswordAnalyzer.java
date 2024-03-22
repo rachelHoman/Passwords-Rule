@@ -14,13 +14,31 @@ public class PasswordAnalyzer {
         Map<String, Integer> passwordFrequency = new HashMap<>();
 
         // Read passwords from file and populate the map
+        // try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        //     String line;
+        //     while ((line = br.readLine()) != null) {
+        //         line = line.trim();
+        //         if (!line.isEmpty()) { // Skip empty lines
+        //             String[] parts = line.split("\\s+", 2); // Split by the first occurrence of whitespace
+        //             if (parts.length == 2) {
+        //                 String frequencyStr = parts[0];
+        //                 String password = parts[1];
+        //                 int frequency = Integer.parseInt(frequencyStr);
+        //                 passwordFrequency.put(password, frequency);
+        //             }
+        //         }
+        //     }
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
-                line = line.trim();
+                // Remove leading whitespaces using stripLeading()
+                line = line.stripLeading();
                 if (!line.isEmpty()) { // Skip empty lines
                     String[] parts = line.split("\\s+", 2); // Split by the first occurrence of whitespace
-                    if (parts.length == 2) {
+                    if (parts.length == 2 && !parts[0].isEmpty()) {
                         String frequencyStr = parts[0];
                         String password = parts[1];
                         int frequency = Integer.parseInt(frequencyStr);
@@ -44,6 +62,9 @@ public class PasswordAnalyzer {
         int[] whitespaceCount = new int[11]; // Array to store count of whitespace characters
         // int[] whitespaceStartCount = new int[11]; // Array to store count of whitespace characters at the beginning of passwords
         // int[] whitespaceEndCount = new int[11]; // Array to store count of whitespace characters at the end of passwords
+        // Count passwords that start or end with a space
+        // int startWithSpaceCount = 0;
+        int endWithSpaceCount = 0;
 
         // Count special characters, numerical characters, lowercase characters, 
         // uppercase characters, password lengths, and whitespace characters considering password frequencies
@@ -56,8 +77,15 @@ public class PasswordAnalyzer {
             int uppercase = countUppercaseCharacters(password);
             int length = password.length();
             int whitespace = countWhitespaceCharacters(password);
-            int whitespaceStart = countWhitespaceAtStart(password);
-            int whitespaceEnd = countWhitespaceAtEnd(password);
+            // int whitespaceStart = countWhitespaceAtStart(password);
+            // int whitespaceEnd = countWhitespaceAtEnd(password);
+
+            // if (password.startsWith(" ")) {
+            //     startWithSpaceCount++;
+            // }
+            if (password.endsWith(" ")) {
+                endWithSpaceCount++;
+            }
             
             // Update special character count array
             if (count >= 0 && count < specialCharCount.length) {
@@ -163,6 +191,9 @@ public class PasswordAnalyzer {
                 System.out.printf("%d                     %d%n", i, whitespaceCount[i]);
             }
         }
+
+        // System.out.println("Number of passwords that start with a space: " + startWithSpaceCount);
+        System.out.println("Number of passwords that end with a space: " + endWithSpaceCount);
         
         // System.out.println("\nNumber of WS Char at Start    Number of WSp Char at End    Number of Passwords");
         // for (int i = 0; i < whitespaceEndCount.length; i++) {
