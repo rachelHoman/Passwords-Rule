@@ -17,12 +17,15 @@ public class PasswordAnalyzer {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
-                // Split the line to get the count and password
-                String[] parts = line.trim().split("\\s+");
-                if (parts.length >= 2) {
-                    String password = parts[parts.length - 1]; // Assuming the password is the last part
-                    passwordFrequency.put(password, passwordFrequency.getOrDefault(password, 0) + Integer.parseInt(parts[0]));
-                    total += Integer.parseInt(parts[0]);
+                line = line.trim();
+                if (!line.isEmpty()) { // Skip empty lines
+                    String[] parts = line.split("\\s+", 2); // Split by the first occurrence of whitespace
+                    if (parts.length == 2) {
+                        String frequencyStr = parts[0];
+                        String password = parts[1];
+                        int frequency = Integer.parseInt(frequencyStr);
+                        passwordFrequency.put(password, frequency);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -31,7 +34,6 @@ public class PasswordAnalyzer {
 
         System.out.println(passwordFrequency);
         System.out.println(passwordFrequency.size());
-        System.out.println("total: " + total);
 
         // Array to store count of passwords with different number of special characters
         int[] specialCharCount = new int[11]; // Increase size to accommodate more special characters
@@ -40,22 +42,14 @@ public class PasswordAnalyzer {
         int[] uppercaseCount = new int[11]; // Array to store count of uppercase characters
         int[] lengthCount = new int[11]; // Array to store count of password lengths (up to 10 characters)
         int[] whitespaceCount = new int[11]; // Array to store count of whitespace characters
-        int[] whitespaceStartCount = new int[11]; // Array to store count of whitespace characters at the beginning of passwords
-        int[] whitespaceEndCount = new int[11]; // Array to store count of whitespace characters at the end of passwords
+        // int[] whitespaceStartCount = new int[11]; // Array to store count of whitespace characters at the beginning of passwords
+        // int[] whitespaceEndCount = new int[11]; // Array to store count of whitespace characters at the end of passwords
 
         // Count special characters, numerical characters, lowercase characters, 
         // uppercase characters, password lengths, and whitespace characters considering password frequencies
         for (String password : passwordFrequency.keySet()) {
             int frequency = passwordFrequency.get(password);
-            // int count = countSpecialCharacters(password) * frequency;
-            // int numeric = countNumericCharacters(password) * frequency;
-            // int lowercase = countLowercaseCharacters(password) * frequency;
-            // int uppercase = countUppercaseCharacters(password) * frequency;
-            // int length = password.length();
-            // int whitespace = countWhitespaceCharacters(password) * frequency;
-            // int whitespaceStart = countWhitespaceAtStart(password) * frequency;
-            // int whitespaceEnd = countWhitespaceAtEnd(password) * frequency;
-            
+            total += frequency;
             int count = countSpecialCharacters(password);
             int numeric = countNumericCharacters(password);
             int lowercase = countLowercaseCharacters(password);
@@ -106,26 +100,17 @@ public class PasswordAnalyzer {
             // Update whitespace count array
             if (whitespace >= 0 && whitespace < whitespaceCount.length) {
                 whitespaceCount[whitespace]++;
-            } 
-            else {
-                whitespaceCount[whitespaceCount.length - 1]++;
             }
 
-            // Update whitespace start count array
-            if (whitespaceStart >= 0 && whitespaceStart < whitespaceStartCount.length) {
-                whitespaceStartCount[whitespaceStart]++;
-            } 
-            else {
-                whitespaceStartCount[whitespaceStartCount.length - 1]++;
-            }
+            // // Update whitespace start count array
+            // if (whitespaceStart >= 0 && whitespaceStart < whitespaceStartCount.length) {
+            //     whitespaceStartCount[whitespaceStart]++;
+            // }
 
-            // Update whitespace end count array
-            if (whitespaceEnd >= 0 && whitespaceEnd < whitespaceEndCount.length) {
-                whitespaceEndCount[whitespaceEnd]++;
-            } 
-            else {
-                whitespaceEndCount[whitespaceEndCount.length - 1]++;
-            }
+            // // Update whitespace end count array
+            // if (whitespaceEnd >= 0 && whitespaceEnd < whitespaceEndCount.length) {
+            //     whitespaceEndCount[whitespaceEnd]++;
+            // }
         }
 
         // Display results
@@ -179,15 +164,16 @@ public class PasswordAnalyzer {
             }
         }
         
-        System.out.println("\nNumber of WS Char at Start    Number of WSp Char at End    Number of Passwords");
-        for (int i = 0; i < whitespaceEndCount.length; i++) {
-            if (i == 10) {
-                System.out.printf("%s                              %d                              %d%n", "10+", whitespaceStartCount[i], whitespaceEndCount[i]);
-            }
-            else {
-                System.out.printf("%d                              %d                              %d%n", i, whitespaceStartCount[i], whitespaceEndCount[i]);
-            }
-        }
+        // System.out.println("\nNumber of WS Char at Start    Number of WSp Char at End    Number of Passwords");
+        // for (int i = 0; i < whitespaceEndCount.length; i++) {
+        //     if (i == 10) {
+        //         System.out.printf("%s                              %d                              %d%n", "10+", whitespaceStartCount[i], whitespaceEndCount[i]);
+        //     }
+        //     else {
+        //         System.out.printf("%d                              %d                              %d%n", i, whitespaceStartCount[i], whitespaceEndCount[i]);
+        //     }
+        // }
+        System.out.println("total: " + total);
     }
 
     // Method to count number of special characters in a password
@@ -261,7 +247,7 @@ public class PasswordAnalyzer {
         }
         return count;
     }
-
+    
     private static int countWhitespaceAtEnd(String password) {
         int count = 0;
         for (int i = password.length() - 1; i >= 0; i--) {
