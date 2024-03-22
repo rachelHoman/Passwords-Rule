@@ -131,32 +131,62 @@ public class PasswordAnalyzer {
         // Display results
         System.out.println("Number of Special Characters   Number of Passwords");
         for (int i = 0; i < specialCharCount.length; i++) {
-            System.out.printf("%d                              %d%n", i, specialCharCount[i]);
+            if (i == 10) {
+                System.out.printf("%s                              %d%n", "10+", specialCharCount[i]);
+            }
+            else {
+                System.out.printf("%d                              %d%n", i, specialCharCount[i]);
+            }
         }
 
         System.out.println("\nNumber of Numeric Characters   Number of Passwords");
         for (int i = 0; i < numericCount.length; i++) {
-            System.out.printf("%d                              %d%n", i, numericCount[i]);
+            if (i == 10) {
+                System.out.printf("%s                              %d%n", "10+", numericCount[i]);
+            }
+            else {
+                System.out.printf("%d                              %d%n", i, numericCount[i]);
+            }
         }
 
-        System.out.println("\nNumber of Lowercase Characters   Number of Uppercase Characters   Number of Passwords");
+        System.out.println("\nNumber of Characters   Number of Uppercase Characters   Number of Lowercase Characters");
         for (int i = 0; i < lowercaseCount.length; i++) {
-            System.out.printf("%d                              %d                              %d%n", i, uppercaseCount[i], lowercaseCount[i]);
+            if (i == 10) {
+                System.out.printf("%s                              %d                              %d%n", "10+", uppercaseCount[i], lowercaseCount[i]);
+            }
+            else {
+                System.out.printf("%d                              %d                              %d%n", i, uppercaseCount[i], lowercaseCount[i]);
+            }
         }
         
         System.out.println("\nLength of Password   Number of Passwords");
         for (int i = 0; i < lengthCount.length; i++) {
-            System.out.printf("%d                     %d%n", i, lengthCount[i]);
+            if (i == 10) {
+                System.out.printf("%s                     %d%n", "10+", lengthCount[i]);
+            }
+            else {
+                System.out.printf("%d                     %d%n", i, lengthCount[i]);
+            }
         }
 
         System.out.println("\nNumber of White Space Characters    Number of Passwords");
         for (int i = 0; i < whitespaceCount.length; i++) {
-            System.out.printf("%d                     %d%n", i, whitespaceCount[i]);
+            if (i == 10) {
+                System.out.printf("%s                     %d%n", "10+", whitespaceCount[i]);
+            }
+            else {
+                System.out.printf("%d                     %d%n", i, whitespaceCount[i]);
+            }
         }
         
         System.out.println("\nNumber of WS Char at Start    Number of WSp Char at End    Number of Passwords");
         for (int i = 0; i < whitespaceEndCount.length; i++) {
-            System.out.printf("%d                              %d                              %d%n", i, whitespaceStartCount[i], whitespaceEndCount[i]);
+            if (i == 10) {
+                System.out.printf("%s                              %d                              %d%n", "10+", whitespaceStartCount[i], whitespaceEndCount[i]);
+            }
+            else {
+                System.out.printf("%d                              %d                              %d%n", i, whitespaceStartCount[i], whitespaceEndCount[i]);
+            }
         }
     }
 
