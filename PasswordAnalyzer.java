@@ -6,12 +6,26 @@ import java.util.Map;
 
 public class PasswordAnalyzer {
     public static void main(String[] args) {
-        // String filename = "myspace-withcount.txt";
-        String filename = "test.txt";
-        int total = 0;
+        String filename = "myspace-withcount.txt";
+        // String filename = "rockyou1.txt";
+        // String filename = "rockyou2.txt";
+        // String filename = "test.txt";
 
+        int total = 0;
         // Map to store password frequencies
         Map<String, Integer> passwordFrequency = new HashMap<>();
+        // Array to store count of passwords with different number of special characters
+        int[] specialCharCount = new int[11]; // Increase size to accommodate more special characters
+        int[] numericCount = new int[11]; // Array to store count of numerical characters
+        int[] lowercaseCount = new int[11]; // Array to store count of lowercase characters
+        int[] uppercaseCount = new int[11]; // Array to store count of uppercase characters
+        int[] lengthCount = new int[11]; // Array to store count of password lengths (up to 10 characters)
+        int[] whitespaceCount = new int[11]; // Array to store count of whitespace characters
+        // int[] whitespaceStartCount = new int[11]; // Array to store count of whitespace characters at the beginning of passwords
+        // int[] whitespaceEndCount = new int[11]; // Array to store count of whitespace characters at the end of passwords
+        // Count passwords that start or end with a space
+        // int startWithSpaceCount = 0;
+        int endWithSpaceCount = 0;
 
         // Read passwords from file and populate the map
         // try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -50,21 +64,10 @@ public class PasswordAnalyzer {
             e.printStackTrace();
         }
 
-        System.out.println(passwordFrequency);
-        System.out.println(passwordFrequency.size());
+        
 
-        // Array to store count of passwords with different number of special characters
-        int[] specialCharCount = new int[11]; // Increase size to accommodate more special characters
-        int[] numericCount = new int[11]; // Array to store count of numerical characters
-        int[] lowercaseCount = new int[11]; // Array to store count of lowercase characters
-        int[] uppercaseCount = new int[11]; // Array to store count of uppercase characters
-        int[] lengthCount = new int[11]; // Array to store count of password lengths (up to 10 characters)
-        int[] whitespaceCount = new int[11]; // Array to store count of whitespace characters
-        // int[] whitespaceStartCount = new int[11]; // Array to store count of whitespace characters at the beginning of passwords
-        // int[] whitespaceEndCount = new int[11]; // Array to store count of whitespace characters at the end of passwords
-        // Count passwords that start or end with a space
-        // int startWithSpaceCount = 0;
-        int endWithSpaceCount = 0;
+        // System.out.println(passwordFrequency);
+        System.out.println(passwordFrequency.size());
 
         // Count special characters, numerical characters, lowercase characters, 
         // uppercase characters, password lengths, and whitespace characters considering password frequencies
@@ -87,42 +90,72 @@ public class PasswordAnalyzer {
                 endWithSpaceCount+=frequency;
             }
             
+            // // Update special character count array
+            // if (count >= 0 && count < specialCharCount.length) {
+            //     specialCharCount[count]+=frequency;
+            // }else {
+            //     specialCharCount[specialCharCount.length - frequency]+=frequency;
+            // }
             // Update special character count array
             if (count >= 0 && count < specialCharCount.length) {
-                specialCharCount[count]+=frequency;
-            }else {
-                specialCharCount[specialCharCount.length - frequency]+=frequency;
+                specialCharCount[count] += frequency;
+            } else {
+                specialCharCount[specialCharCount.length - 1] += frequency;
             }
 
+            // // Update numeric count array
+            // if (numeric >= 0 && numeric < numericCount.length) {
+            //     numericCount[numeric]+=frequency;
+            // } 
+            // else {
+            //     numericCount[numericCount.length - 1]+=frequency;
+            // }
             // Update numeric count array
             if (numeric >= 0 && numeric < numericCount.length) {
-                numericCount[numeric]+=frequency;
-            } 
-            else {
-                numericCount[numericCount.length - frequency]+=frequency;
+                numericCount[numeric] += frequency;
+            } else {
+                numericCount[numericCount.length - 1] += frequency;
             }
 
+            // // Update lowercase count array
+            // if (lowercase >= 0 && lowercase < lowercaseCount.length) {
+            //     lowercaseCount[lowercase]+=frequency;
+            // } 
+            // else {
+            //     lowercaseCount[lowercaseCount.length - 1]+=frequency;
+            // }
             // Update lowercase count array
             if (lowercase >= 0 && lowercase < lowercaseCount.length) {
-                lowercaseCount[lowercase]+=frequency;
-            } 
-            else {
-                lowercaseCount[lowercaseCount.length - frequency]+=frequency;
+                lowercaseCount[lowercase] += frequency;
+            } else {
+                lowercaseCount[lowercaseCount.length - 1] += frequency;
             }
 
+            // // Update uppercase count array
+            // if (uppercase >= 0 && uppercase < uppercaseCount.length) {
+            //     uppercaseCount[uppercase]+=frequency;
+            // } 
+            // else {
+            //     uppercaseCount[uppercaseCount.length - 1]+=frequency;
+            // }
             // Update uppercase count array
             if (uppercase >= 0 && uppercase < uppercaseCount.length) {
-                uppercaseCount[uppercase]+=frequency;
-            } 
-            else {
-                uppercaseCount[uppercaseCount.length - frequency]+=frequency;
+                uppercaseCount[uppercase] += frequency;
+            } else {
+                uppercaseCount[uppercaseCount.length - 1] += frequency;
             }
 
+            // // Update length count array
+            // if (length >= 0 && length < lengthCount.length) {
+            //     lengthCount[length]+=frequency;
+            // }else {
+            //     lengthCount[lengthCount.length - 1]+=frequency;
+            // }
             // Update length count array
             if (length >= 0 && length < lengthCount.length) {
-                lengthCount[length]+=frequency;
-            }else {
-                lengthCount[lengthCount.length - frequency]+=frequency;
+                lengthCount[length] += frequency;
+            } else {
+                lengthCount[lengthCount.length - 1] += frequency;
             }
 
             // Update whitespace count array
