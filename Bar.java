@@ -8,12 +8,12 @@ import java.awt.image.BufferedImage;
 public class Bar extends JPanel {
 
     // Sample data for the bar chart
-    private final int[] specialCharCount = {41260, 106, 67, 32, 26, 19, 10, 4, 8, 0, 2};
+    private final int[] specialCharCount = {3, 146, 1043, 6342, 70924, 1326601, 8483343, 6288381, 6514160, 3950478, 5952841};
     private final String[] labels = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+"};
-    private final String xAxisName = "Number of Whitespace Characters";
+    private final String xAxisName = "Length of Passwords";
     private final String yAxisName = "Percentage of passwords (%)";
-    private final String chartTitle = "MySpace: Whitespace in Passwords";
-    private final int total = 41545;
+    private final String chartTitle = "MySpace: Password Length";
+    private final int total = 32599862;
 
     // Array to store the calculated percentages
     private final int[] percentages = new int[specialCharCount.length];
@@ -28,7 +28,6 @@ public class Bar extends JPanel {
     private void calculatePercentages() {
         for (int i = 0; i < specialCharCount.length; i++) {
             percentages[i] = (int) ((double) specialCharCount[i] / total * 100);
-            System.out.println(percentages[i]);
         }
     }
 
@@ -139,7 +138,7 @@ public class Bar extends JPanel {
             g2d.dispose();
 
             try {
-                File outputFile = new File("myspace_wsp.png");
+                File outputFile = new File("rockyou_len.png");
                 ImageIO.write(image, "png", outputFile);
             } catch (IOException e) {
                 e.printStackTrace();
