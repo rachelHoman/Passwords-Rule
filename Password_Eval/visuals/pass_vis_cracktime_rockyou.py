@@ -14,7 +14,7 @@ offline_slow_hashing = []
 offline_fast_hashing = []
 
 # Open the file and extract data
-with open("filtered_data_cracktime_rockyou.txt", "r") as file:
+with open("filtered/filtered_data_cracktime_rockyou.txt", "r") as file:
     for line in file:
         # Extract password and crack time data
         password_match = password_pattern.search(line)
@@ -36,8 +36,6 @@ with open("filtered_data_cracktime_rockyou.txt", "r") as file:
 # Calculate the maximum crack time
 max_crack_time = max(max(online_throttling), max(online_no_throttling), max(offline_slow_hashing), max(offline_fast_hashing))
 
-# Set the y-axis limit to be the maximum crack time divided by 10
-plt.ylim(0, max_crack_time / 10)
 
 # Plot the data as a scatter plot
 plt.figure(figsize=(10, 6))
@@ -50,8 +48,10 @@ plt.ylabel('Crack Time')
 plt.title('Rockyou: Crack Time vs. Password Length')
 plt.legend()
 plt.grid(True)
+plt.xlim(0, 50)
+plt.ylim(0, 1000000)
 
 # Save the plot as an image file
-plt.savefig('password_length_cracktime_scatter_rockyou.png')
+plt.savefig('password_length_cracktime_scatter_rockyou_short1000000.png')
 
 plt.show()

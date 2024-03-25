@@ -14,7 +14,7 @@ offline_slow_hashing = []
 offline_fast_hashing = []
 
 # Open the file and extract data
-with open("filtered_data/filtered_data_cracktime.txt", "r") as file:
+with open("filtered/filtered_data_cracktime.txt", "r") as file:
     for line in file:
         # Extract password and crack time data
         password_match = password_pattern.search(line)
@@ -44,8 +44,10 @@ plt.ylabel('Crack Time')
 plt.title('MySpace: Crack Time vs. Password Length')
 plt.legend()
 plt.grid(True)
+plt.xlim(0, 50)
+plt.ylim(0, 100)
 
 # Save the plot as an image file
-plt.savefig('password_length_cracktime_scatter.png')
+plt.savefig('password_length_cracktime_scatter_short100.png')
 
 plt.show()
