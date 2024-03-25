@@ -5,7 +5,7 @@ password_lengths = []
 scores = []
 
 # Open the file containing filtered data for reading
-with open('filtered_data/filtered_data_score.txt', 'r') as file:
+with open('filtered_data_score_rockyou.txt', 'r') as file:
     # Read each line
     for line_number, line in enumerate(file, start=1):
         # Split the line to extract password and score
@@ -30,7 +30,7 @@ with open('filtered_data/filtered_data_score.txt', 'r') as file:
 # Plotting
 plt.figure(figsize=(8, 6))
 plt.scatter(password_lengths, scores, color='blue')
-plt.title('MySpace: Password Length vs Score')
+plt.title('Rockyou: Password Length vs Score')
 plt.xlabel('Password Length')
 plt.ylabel('Score')
 plt.grid(True)
@@ -41,7 +41,7 @@ plt.yticks(range(max(scores) + 1))
 plt.tight_layout()
 
 # Save the plot as an image file
-plt.savefig('password_length_score_scatter.png')
+plt.savefig('password_length_score_scatter_rockyou.png')
 
 # Show the plot
 plt.show()

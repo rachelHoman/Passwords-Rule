@@ -6,7 +6,7 @@ password_lengths = []
 guesses = []
 
 # Open the file containing filtered data for reading
-with open('filtered_data/filtered_data_guesses.txt', 'r') as file:
+with open('filtered_data_guesses_rockyou.txt', 'r') as file:
     # Read each line
     for line_number, line in enumerate(file, start=1):
         # Extract password and guesses using regular expression
@@ -29,7 +29,7 @@ if not password_lengths:
 # Plotting
 plt.figure(figsize=(8, 6))
 plt.scatter(password_lengths, guesses, color='blue')
-plt.title('MySpace: Password Length vs Guesses')
+plt.title('Rockyou: Password Length vs Guesses')
 plt.xlabel('Password Length')
 plt.ylabel('Guesses')
 plt.grid(True)
@@ -40,7 +40,7 @@ plt.yscale('log')
 plt.tight_layout()
 
 # Save the plot as an image file
-plt.savefig('password_length_guesses_scatter.png')
+plt.savefig('password_length_guesses_scatter_rockyou.png')
 
 # Show the plot
 plt.show()
